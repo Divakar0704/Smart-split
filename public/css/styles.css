@@ -129,3 +129,41 @@ footer p{
     display: flex;
     justify-content: center;
 }
+
+/* insights section  */
+
+#insights{
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size:1.5rem ;
+}
+
+.insights-content{
+    width: 55%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    line-height: 4rem;
+
+}
+
+.insights-img{
+    width: 45%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.insights-img img{
+    width: 100%;
+    height: auto;
+}

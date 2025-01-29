@@ -9,7 +9,7 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
-    res.render("index.ejs");
+    res.render("start.ejs");
   });
 
   app.get("/login", (req, res) => {
@@ -26,6 +26,10 @@ app.get("/", (req, res) => {
 
   app.get("/planner", (req, res) => {
     res.render("planner.ejs");
+  });
+
+  app.get("/insights", (req, res) => {
+    res.render("insights.ejs");
   });
 
   app.listen(port, () => {
