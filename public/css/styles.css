@@ -1,7 +1,7 @@
 *{
     padding: 0;
     margin: 0;
-    font-family: 'Times New Roman', Times, serif;
+    font-family: 'Roboto', sans-serif;
 }
 body{
     background-color:#fff;
@@ -15,7 +15,6 @@ body{
     width: 100%;
     height: 4.5rem;
     background-color:#0c366ae2;
-    /* #0c376a */
     border-radius: 2px;
 }
 #logbar{
