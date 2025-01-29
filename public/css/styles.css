@@ -1,0 +1,132 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: 'Times New Roman', Times, serif;
+}
+body{
+    background-color:#fff;
+}
+#navbar{
+    position:fixed;
+    top:0;
+    display:flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 4.5rem;
+    background-color:#0c366ae2;
+    /* #0c376a */
+    border-radius: 2px;
+}
+#logbar{
+    position:fixed;
+    top:0;
+    display:flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 4.5rem;
+    background-color:#0a3f81;
+    border-radius: 2px;
+}
+.space{
+    width:50%;
+}
+
+.nav-elements{
+    font-weight: 500;
+    font-size: 1.2rem;
+    border: 1.5px solid lightblue;
+    border-radius: 25px;
+    padding: 5px 10px 5px 10px  ;
+    background-color: #008ee7;
+    color: #f7f5f5;
+}
+
+.nav-elements a{
+    text-decoration: none;
+    color: #fff;
+}
+
+#hero{
+    margin-top: 8%;
+    height: 100vh;
+    width: 100%;
+}
+
+.hero img{
+    width:55%;
+    height: 80vh;
+    float: left;
+    z-index: -2;
+}
+
+.hero .contents{
+    width: 45%;
+    gap: 2rem;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items:flex-start;
+    justify-content: center;
+}
+
+.hero button{
+    gap: 1rem;
+    border-radius: 25px;
+    font-size:1.7rem;
+    background-color: #0074bc;
+    color: #fff;
+    border: 1.5px solid black;
+    padding: 0.6% .8% .6% .8%;
+    box-shadow:2px 5px 5px rgba(67, 67, 67, 0.47);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.hero button:hover,btn:hover{
+    transform: translateY(-7px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+    background-color: #008ae0;
+    color: #f6f7f7;
+}
+
+/* planner section  */
+
+#planner{
+    position: fixed;
+    top: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center ;
+    width: 100%;
+    height: 100vh;
+    gap: 7rem;
+    
+}
+#calculator p{          
+    text-wrap: 2rem;
+
+}
+.plan-img{
+    width: 25%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.plan-img img{
+
+    height: 20rem;
+    width: 25rem;
+}
+
+/* footer section  */
+
+footer{
+    position:fixed;
+    bottom: 0; 
+}
+
+footer p{
+    display: flex;
+    justify-content: center;
+}

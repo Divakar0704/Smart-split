@@ -1,0 +1,52 @@
+<%- include("partials/header.ejs")  %>
+<%- include("partials/navbar.ejs")  %>
+
+<div id="logbar" class="log">
+    <div class="" style="font-weight: 700;font-size:2rem;color:#fff;">Financial Flow</div>
+    <div class="space"></div>
+    <div class="nav-elements" href="/login">login</div>
+    <div class="nav-elements" href="/register">register</div>
+</div>
+  
+    <!-- Hero Section -->
+     <div id="hero">
+        <form class="hero" action="/login" method="GET">
+            <div class="side-image"><img src="images/start.svg" alt=""></div>
+            <div class="contents">
+                <h1>Master Your Money with the 50-30-20 Rule</h1>
+            <p>Simplify your budgeting, achieve your goals, and enjoy financial freedom.</p>
+            <button type="submit" >Get Started</button>
+            </div>
+            
+        </form>
+    
+     </div>
+   
+
+    <!-- Budget Calculator Section -->
+    <section id="calculator">
+        <h2>Budget Calculator</h2>
+        <form id="budget-form">
+            <label for="income">Enter Your Monthly Income:</label>
+            <input type="number" id="income" placeholder="e.g., 50000">
+            <button type="submit">Calculate</button>
+        </form>
+        <div id="results">
+            <p><strong>Needs (50%):</strong> ₹<span id="needs-amount">0</span></p>
+            <p><strong>Wants (30%):</strong> ₹<span id="wants-amount">0</span></p>
+            <p><strong>Savings (20%):</strong> ₹<span id="savings-amount">0</span></p>
+        </div>
+    </section>
+
+    <!-- Tips Section -->
+    <section id="tips">
+        <h2>Budgeting Tips</h2>
+        <ul>
+            <li>Track your spending regularly to stay within the 50-30-20 guidelines.</li>
+            <li>Prioritize saving for an emergency fund before discretionary spending.</li>
+            <li>Review and adjust your budget as your financial situation changes.</li>
+        </ul>
+    </section>
+
+    <!-- Footer Section -->
+    <%- include("partials/footer.ejs")  %>
