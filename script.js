@@ -32,6 +32,14 @@ app.get("/", (req, res) => {
     res.render("insights.ejs");
   });
 
+  app.get("/profile", (req, res) => {
+    res.render("profile.ejs");
+  });
+
+  app.get("/contact", (req, res) => {
+    res.render("contact.ejs");
+  });
+
   app.listen(port, () => {
-    console.log(`Listening on port ${port}`);
+    console.log(`Listening on port ${port},http://localhost:3000/`);
   }); 

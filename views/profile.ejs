@@ -1,0 +1,35 @@
+<%- include("partials/header.ejs")  %>
+<%- include("partials/navbar.ejs")  %>
+
+<form id="profile" action="/profile" method="POST">
+    <div class="profile-container">
+        <div class="profile-sidebar">
+            <div class="profile-pic">
+                <img src="/images/profile.png" alt="Profile">
+            </div>
+            <h2><%% user.name %%></h2>
+            <p><%% user.profession %%></p>
+            <div class="income-box">
+                <h3>Monthly Income Sources</h3>
+                <p><%% user.income %%></p>
+            </div>
+        </div>
+
+        <div class="profile-details">
+            <div class="box goals">
+                <h3>Saving Goals</h3>
+                <p><%% user.savingGoals %%></p>
+            </div>
+            <div class="box expenses">
+                <h3>Expense Categories of This Month</h3>
+                <p><%%user.expenseCategories %%></p>
+            </div>
+            <div class="box history">
+                <h3>Budget History</h3>
+                <p><%% user.budgetHistory %%></p>
+            </div>
+        </div>
+    </div>
+</form>
+
+<%- include("partials/footer.ejs")  %>
