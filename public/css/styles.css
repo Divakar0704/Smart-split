@@ -35,18 +35,24 @@ body{
 .nav-elements{
     font-weight: 500;
     font-size: 1.2rem;
-    border: 1.5px solid lightblue;
-    border-radius: 25px;
-    padding: 5px 10px 5px 10px  ;
-    background-color: #008ee7;
-    color: #f7f5f5;
+    all: unset;
+    cursor: pointer;
+    color: #cefafd;
+    transition: color 0.3s ease-in-out;
 }
-
+.nav-elements:hover{
+    color:white;
+}
 .nav-elements a{
     text-decoration: none;
-    color: #fff;
+    color: #f5f5f5;
 }
-
+.logo {
+        font-size: 20px;
+        font-weight: bold;
+        color: white;
+      /*  margin-right: auto;  Pushes everything else to the right */
+}
 #hero{
     margin-top: 8%;
     height: 100vh;
@@ -72,18 +78,15 @@ body{
 
 .hero button{
     gap: 1rem;
-    border-radius: 25px;
+    border-radius: 20px;
     font-size:1.7rem;
     background-color: #0074bc;
     color: #fff;
-    border: 1.5px solid black;
     padding: 0.6% .8% .6% .8%;
-    box-shadow:2px 5px 5px rgba(67, 67, 67, 0.47);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease;
 }
 .hero button:hover,btn:hover{
     transform: translateY(-7px);
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
     background-color: #008ae0;
     color: #f6f7f7;
 }

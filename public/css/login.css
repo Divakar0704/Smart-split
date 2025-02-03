@@ -15,7 +15,7 @@ body {
     width: 400px;
     background-color: #FFFFFF;
     border-radius: 12px;
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.703);
+    /*box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.703);*/
     overflow: hidden;
     position: relative;
   }
@@ -61,7 +61,7 @@ body {
   }
   
   .btn {
-    background-color: #00a738; /* Soft Teal */
+    background-color: #307ddae2; /* Soft Teal */
     color: #FFFFFF;
     border: none;
     padding: 0.8rem;
@@ -73,7 +73,7 @@ body {
   }
   
   .btn:hover {
-    background-color: #007527; /* Pale Green */
+    background-color:#0c366ae2; /* Pale Green */
   }
   
   .toggle-text {
@@ -82,7 +82,7 @@ body {
   }
   
   .toggle-link {
-    color: #33fe00; /* Soft Teal */
+    color:#307ddae2;
     font-weight: bold;
     cursor: pointer;
     text-decoration: none;
