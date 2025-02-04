@@ -9,7 +9,7 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
-    res.render("index.ejs");
+    res.render("start.ejs");
   });
 
   app.get("/login", (req, res) => {
@@ -28,6 +28,18 @@ app.get("/", (req, res) => {
     res.render("planner.ejs");
   });
 
+  app.get("/insights", (req, res) => {
+    res.render("insights.ejs");
+  });
+
+  app.get("/profile", (req, res) => {
+    res.render("profile.ejs");
+  });
+
+  app.get("/contact", (req, res) => {
+    res.render("contact.ejs");
+  });
+
   app.listen(port, () => {
-    console.log(`Listening on port ${port}`);
+    console.log(`Listening on port ${port},http://localhost:3000/`);
   }); 
