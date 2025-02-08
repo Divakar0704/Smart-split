@@ -1,26 +1,28 @@
-<%- include("partials/header.ejs")  %>
-<%- include("partials/navbar.ejs")  %>
+<%- include("partials/header.ejs") %> <%- include("partials/navbar.ejs") %>
 
 <div id="logbar" class="log">
-    <div class="" style="font-weight: 700;font-size:2rem;color:#fff;">Smart Split</div>
-    <div class="space"></div>
-    <div class="nav-elements" ><a href="/login">Login</a></div>
-    <div class="nav-elements" ><a href="/register">register</a></div>
+  <div class="" style="font-weight: 700; font-size: 2rem; color: #fff">
+    Smart Split
+  </div>
+  <div class="space"></div>
+  <div class="nav-elements"><a href="/login">Login</a></div>
+  <div class="nav-elements"><a href="/register">Register</a></div>
 </div>
-  
-    <!-- Hero Section -->
-     <div id="hero">
-        <form class="hero" action="/login" method="GET">
-            <div class="side-image"><img src="images/start.svg" alt=""></div>
-            <div class="contents">
-                <h1>Master Your Money with the 50-30-20 Rule</h1>
-            <p>Simplify your budgeting, achieve your goals, and enjoy financial freedom.</p>
-            <button type="submit" >Get Started</button>
-            </div>
-            
-        </form>
-    
-     </div>
 
-    <!-- Footer Section -->
-    <%- include("partials/footer.ejs")  %>
+<!-- Hero Section -->
+<div id="hero">
+  <form class="hero" action="/login" method="GET">
+    <div class="side-image"><img src="images/start.svg" alt="" /></div>
+    <div class="contents">
+      <h1>Master Your Money with the 50-30-20 Rule</h1>
+      <p>
+        Simplify your budgeting, achieve your goals, and enjoy financial
+        freedom.
+      </p>
+      <button type="submit">Get Started</button>
+    </div>
+  </form>
+</div>
+
+<!-- Footer Section -->
+<%- include("partials/footer.ejs") %>

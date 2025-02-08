@@ -35,15 +35,17 @@ body{
 }
 
 .nav-elements{
+    all:unset;
     font-weight: 500;
-    font-size: 1.2rem;
-    border: 1.5px solid lightblue;
-    border-radius: 25px;
+    font-size: 1.1rem;
     padding: 5px 10px 5px 10px  ;
-    background-color: #008ee7;
-    color: #f7f5f5;
+    color: white;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
 }
-
+.nav-elements:hover{
+    color:#ffffff;
+}
 .nav-elements a{
     text-decoration: none;
     color: #fff;
@@ -78,14 +80,11 @@ body{
     font-size:1.7rem;
     background-color: #0074bc;
     color: #fff;
-    border: 1.5px solid black;
     padding: 0.6% .8% .6% .8%;
-    box-shadow:2px 5px 5px rgba(67, 67, 67, 0.47);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease-in-out;
 }
 .hero button:hover,btn:hover{
-    transform: translateY(-7px);
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
     background-color: #008ae0;
     color: #f6f7f7;
 }
@@ -155,10 +154,11 @@ footer{
     width: 55%;
     height: 100vh;
     display: flex;
+    padding: 12px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    line-height: 4rem;
+    line-height: 2rem;
 
 }
 
@@ -237,8 +237,6 @@ footer{
 }
 
 /* contact us section  */
-
-/* Contact Container */
 .contact-container {
     box-shadow: 12px 6px 6px rgba(0, 0, 0, 0.432);
     width: 80%;
@@ -264,64 +262,49 @@ footer{
     margin-bottom: 20px;
 }
 
-/* Contact Details */
-.contact-details {
-    text-align: left;
-    padding: 15px;
-    background: #F5F3EF; /* Light Beige */
-    border-radius: 8px;
-    margin-bottom: 20px;
+contact-container {
+    width: 40%; /* Adjust the width of the form container */
+    margin: 0 auto;
+    text-align: center;
 }
 
-.contact-details p {
-    margin: 10px 0;
-    font-size: 15px;
-}
-
-.contact-details strong {
-    color: #4A4A4A;
-}
-
-/* Form Styling */
-#contact {
+.input-group {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
-#contact input, #contact textarea {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 1rem;
-    border: 1px solid #D1D5DB; /* Muted Gray */
-    border-radius: 8px;
+.input-group label {
+    margin-bottom: 5px;
+}
+
+.input-group input,
+.input-group textarea {
+    width: 60%; /* Adjust to make the input box smaller */
+    max-width: 350px; /* Ensures it doesn't get too large */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
     font-size: 14px;
-    background-color: #FAFAF9; /* Off-White */
-    transition: 0.3s;
 }
 
-#contact input:focus, textarea:focus {
-    border-color: #A9D6B8; /* Pale Green */
-    outline: none;
+.input-group textarea {
+    height: 80px; /* Adjust textarea height */
 }
 
-/* Submit Button */
-#contact button {
-    background-color: #B5E4E0;
-    margin-top: 1rem; /* Soft Teal */
-    color: #4A4A4A;
+.btn {
+    background-color: #008ae0;
+    color: white;
+    padding: 8px 30px;
     border: none;
-    padding: 12px;
-    font-size: 16px;
-    font-weight: 600;
     cursor: pointer;
-    border-radius: 8px;
-    transition: background 0.3s;
+    font-size: 16px;
+    border-radius: 5px;
 }
 
-#contact button:hover {
-    background-color:  #4998ff;
-    color: white /* Dark Blue */; /* Pale Green */
+.btn:hover {
+    background-color: #0f9df5;
 }
 
 /* Recent Messages */

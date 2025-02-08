@@ -61,7 +61,7 @@ body {
   }
   
   .btn {
-    background-color: #00a738; /* Soft Teal */
+    background-color: #008ae0; /* Soft Teal */
     color: #FFFFFF;
     border: none;
     padding: 0.8rem;
@@ -73,7 +73,7 @@ body {
   }
   
   .btn:hover {
-    background-color: #007527; /* Pale Green */
+    background-color: #0f9df5; /* Pale Green */
   }
   
   .toggle-text {
@@ -82,7 +82,7 @@ body {
   }
   
   .toggle-link {
-    color: #33fe00; /* Soft Teal */
+    color: #0f9df5; /* Soft Teal */
     font-weight: bold;
     cursor: pointer;
     text-decoration: none;
