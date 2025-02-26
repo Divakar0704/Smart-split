@@ -102,6 +102,22 @@ body{
     gap: 7rem;
     
 }
+
+.plan-img {
+    display: flex;
+    justify-content: center;  /* Centers the chart */
+    align-items: center;
+    height: 400px;  /* Set a fixed height */
+    padding: 20px;  /* Adds spacing */
+    margin-top: 20px; /* Prevents overlap with navbar */
+}
+
+#budgetChart {
+    max-width: 100%; /* Ensures the chart doesn’t exceed the container */
+    max-height: 350px; /* Adjust chart height */
+}
+
+
 #calculator p{          
     text-wrap: 2rem;
 

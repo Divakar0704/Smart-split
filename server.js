@@ -35,8 +35,24 @@ app.get("/", (req, res) => {
   });
 
   app.get("/planner", (req, res) => {
-    res.render("planner.ejs");
-  });
+    res.render("planner.ejs", { needs: 0, wants: 0, savings: 0 });
+});
+
+
+  app.post("/planner", (req, res) => {
+    const income = parseFloat(req.body.income);
+
+    if (!isNaN(income) && income > 0) {
+        const needs = (income * 0.50).toFixed(2);
+        const wants = (income * 0.30).toFixed(2);
+        const savings = (income * 0.20).toFixed(2);
+
+        res.render("planner.ejs", { needs, wants, savings });
+    } else {
+        res.render("planner.ejs", { needs: 0, wants: 0, savings: 0 });
+    }
+});
+
 
   app.get("/insights", (req, res) => {
     res.render("insights.ejs");
