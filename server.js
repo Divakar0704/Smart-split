@@ -39,18 +39,21 @@ app.get("/", (req, res) => {
 });
 
 
-  app.post("/planner", (req, res) => {
-    const income = parseFloat(req.body.income);
+app.post("/planner", (req, res) => {
+  const income = parseFloat(req.body.income);
+  const needsRatio = parseFloat(req.body.needsRatio) / 100;
+  const wantsRatio = parseFloat(req.body.wantsRatio) / 100;
+  const savingsRatio = parseFloat(req.body.savingsRatio) / 100;
 
-    if (!isNaN(income) && income > 0) {
-        const needs = (income * 0.50).toFixed(2);
-        const wants = (income * 0.30).toFixed(2);
-        const savings = (income * 0.20).toFixed(2);
+  if (!isNaN(income) && income > 0 && needsRatio + wantsRatio + savingsRatio === 1) {
+      const needs = (income * needsRatio).toFixed(2);
+      const wants = (income * wantsRatio).toFixed(2);
+      const savings = (income * savingsRatio).toFixed(2);
 
-        res.render("planner.ejs", { needs, wants, savings });
-    } else {
-        res.render("planner.ejs", { needs: 0, wants: 0, savings: 0 });
-    }
+      res.render("planner.ejs", { needs, wants, savings });
+  } else {
+      res.render("planner.ejs", { needs: 0, wants: 0, savings: 0 });
+  }
 });
 
 
