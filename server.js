@@ -35,7 +35,7 @@ app.get("/", (req, res) => {
   });
 
   app.get("/planner", (req, res) => {
-    res.render("planner.ejs", { needs: 0, wants: 0, savings: 0 });
+    res.render("planner.ejs", { needs: 50, wants: 30, savings: 20 });
 });
 
 

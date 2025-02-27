@@ -114,7 +114,7 @@ body{
 
 #budgetChart {
     max-width: 100%; /* Ensures the chart doesn’t exceed the container */
-    max-height: 350px; /* Adjust chart height */
+    max-height: 400px; /* Adjust chart height */
 }
 
 

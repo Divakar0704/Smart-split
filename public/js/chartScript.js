@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     new Chart(ctx, {
         type: "pie",
         data: {
-            labels: ["Needs (50%)", "Wants (30%)", "Savings (20%)"],
+            labels: [" Needs  ", " Wants  ", " Savings "],
             datasets: [{
                 data: [needs, wants, savings],
                 backgroundColor: ["#ff6384", "#36a2eb", "#ffce56"],
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     position: "bottom",  // Moves labels below the chart
                     labels: {
                         font: {
-                            size: 14
+                            size: 22
                         }
                     }
                 }
