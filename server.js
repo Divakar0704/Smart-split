@@ -45,6 +45,10 @@ app.post("/planner", (req, res) => {
   const wantsRatio = parseFloat(req.body.wantsRatio) / 100;
   const savingsRatio = parseFloat(req.body.savingsRatio) / 100;
 
+  if(needsRatio + wantsRatio + savingsRatio >100){
+    alert("ENTER VALID RATIOS.");
+  }
+
   if (!isNaN(income) && income > 0 && needsRatio + wantsRatio + savingsRatio === 1) {
       const needs = (income * needsRatio).toFixed(2);
       const wants = (income * wantsRatio).toFixed(2);
