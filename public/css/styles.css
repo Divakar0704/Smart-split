@@ -91,48 +91,108 @@ body{
 
 /* planner section  */
 
-#planner,#profile,#contact{
+/* Ensure the whole page allows scrolling if content overflows */
+body {
+    overflow-y: auto;
+    margin: 0;
+    padding: 0;
+}
+
+/* Keep your existing layout */
+#planner, #profile, #contact {
     position: fixed;
     top: 40px;
     display: flex;
     align-items: center;
-    justify-content: center ;
+    justify-content: center;
     width: 100%;
     height: 100vh;
-    gap: 7rem;
-    
+    gap: 5rem; /* Reduced gap slightly */
 }
 
+/* Adjust calculator size to fit within screen */
+#calculator {
+    width: 90%;
+    max-width: 350px; /* Reduced from 450px */
+    padding: 15px; /* Reduced padding */
+    background: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-height: 85vh; /* Prevents it from taking up too much space */
+    overflow-y: auto; /* Enables scrolling if needed */
+}
+
+/* Label Styling */
+label {
+    display: block;
+    text-align: left;
+    font-weight: bold;
+    margin: 8px 0 3px; /* Reduced margin */
+    font-size: 14px; /* Smaller text */
+}
+
+/* Input Field Styling */
+input {
+    width: 95%; /* Reduced width */
+    padding: 8px; /* Smaller padding */
+    font-size: 14px; /* Smaller font */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Input focus effect */
+input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.4);
+}
+
+/* Button Styling */
+button {
+    width: 95%; /* Slightly smaller */
+    padding: 10px; /* Smaller padding */
+    font-size: 14px; /* Smaller font */
+    font-weight: bold;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #0056b3;
+    transform: scale(1.03);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+/* Chart Container */
 .plan-img {
     display: flex;
-    justify-content: center;  /* Centers the chart */
-    align-items: center;
-    height: 400px;  /* Set a fixed height */
-    padding: 20px;  /* Adds spacing */
-    margin-top: 20px; /* Prevents overlap with navbar */
-}
-
-#budgetChart {
-    max-width: 100%; /* Ensures the chart doesn’t exceed the container */
-    max-height: 400px; /* Adjust chart height */
-}
-
-
-#calculator p{          
-    text-wrap: 2rem;
-
-}
-.plan-img{
-    width: 25%;
-    height: 100%;
-    display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    width: 22%; /* Reduced width */
+    height: 90%; /* Adjusted height */
 }
-.plan-img img{
 
-    height: 20rem;
-    width: 25rem;
+/* Prevents chart from being too large */
+#budgetChart {
+    max-width: 100%;
+    max-height: 300px; /* Reduced size */
+}
+
+/* Results section styling */
+#calculator p {
+    font-size: 14px; /* Reduced text size */
+    margin-top: 8px;
 }
 
 /* footer section  */
@@ -311,6 +371,7 @@ contact-container {
 
 .btn {
     background-color: #008ae0;
+    width: 15%;
     color: white;
     padding: 8px 30px;
     border: none;
@@ -345,6 +406,7 @@ contact-container {
 .contact-inputs{
     margin-bottom: 2px;
 }
+
 
 /* Animation */
 @keyframes fadeIn {
