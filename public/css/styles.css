@@ -6,6 +6,8 @@
 body{
     background-color:#fff;
     font-weight: 500;
+    overflow-y: auto;
+
 }
 
 #navbar{
@@ -126,7 +128,7 @@ body {
 }
 
 /* Label Styling */
-label {
+#calculator label {
     display: block;
     text-align: left;
     font-weight: bold;
@@ -135,7 +137,7 @@ label {
 }
 
 /* Input Field Styling */
-input {
+#calculator input {
     width: 95%; /* Reduced width */
     padding: 8px; /* Smaller padding */
     font-size: 14px; /* Smaller font */
@@ -146,14 +148,14 @@ input {
 }
 
 /* Input focus effect */
-input:focus {
+#calculator input:focus {
     border-color: #007bff;
     outline: none;
     box-shadow: 0 0 4px rgba(0, 123, 255, 0.4);
 }
 
 /* Button Styling */
-button {
+#calculator button {
     width: 95%; /* Slightly smaller */
     padding: 10px; /* Smaller padding */
     font-size: 14px; /* Smaller font */
@@ -167,17 +169,17 @@ button {
     margin-top: 10px;
 }
 
-button:hover {
+#calculator button:hover {
     background-color: #0056b3;
     transform: scale(1.03);
 }
 
-button:active {
+#calculator button:active {
     transform: scale(0.95);
 }
 
 /* Chart Container */
-.plan-img {
+#calculator .plan-img {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -248,6 +250,9 @@ footer{
 
 /* profile section  */
 /* #profile done in #planner section  */
+#planner{
+
+}
 
 .profile-container {
     display: flex;
@@ -308,6 +313,9 @@ footer{
 }
 
 /* contact us section in 103 line. */
+#contact{
+    top: 0.5rem;
+}
 
 
 /* Contact Form Container */
@@ -336,17 +344,16 @@ footer{
 }
 
 /* Labels Styling */
-label {
+#contact label {
     display: block;
     text-align: left;
     font-weight: bold;
     font-size: 14px;
-    margin-top: 10px;
-    margin-bottom: 5px; 
+    margin: 8px 0 3px;
 }
 
 /* Input Fields */
-input, textarea {
+#contact input,#contact textarea {
     width: calc(100% - 20px); /* Prevents full stretch */
     padding: 10px;
     font-size: 14px;
@@ -359,20 +366,20 @@ input, textarea {
 }
 
 /* Input focus effect */
-input:focus, textarea:focus {
+#contact input:focus,#contact textarea:focus {
     border-color: #007bff;
     outline: none;
     box-shadow: 0 0 4px rgba(0, 123, 255, 0.4);
 }
 
 /* Textarea Specific Styling */
-textarea {
+#contact textarea {
     resize: vertical;
     height: 80px; /* Default height */
 }
 
 /* Submit Button */
-button {
+#contact button {
     width: 30%; /* Makes button match input width */
     padding: 12px;
     font-size: 14px;
@@ -386,12 +393,12 @@ button {
     display: center;
 }
 
-button:hover {
+#contact button:hover {
     background-color: #0056b3;
     transform: scale(1.03);
 }
 
-button:active {
+#contact button:active {
     transform: scale(0.95);
 }
 
