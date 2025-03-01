@@ -18,6 +18,7 @@ body{
     height: 4.5rem;
     background-color:#0c366ae2;
     border-radius: 2px;
+    z-index: 10;
 }
 #logbar{
     position:fixed;
@@ -107,7 +108,8 @@ body {
     justify-content: center;
     width: 100%;
     height: 100vh;
-    gap: 5rem; /* Reduced gap slightly */
+    gap: 5rem;
+    background-color: #f8f9fa;
 }
 
 /* Adjust calculator size to fit within screen */
@@ -305,12 +307,8 @@ footer{
     height: 180px;
 }
 
-/* contact us section  */
-/* Center the Contact Us form */
-#contact {
-    top: 80px;
-    background-color: #f8f9fa; /* Light grey background */
-}
+/* contact us section in 103 line. */
+
 
 /* Contact Form Container */
 .contact-container {
