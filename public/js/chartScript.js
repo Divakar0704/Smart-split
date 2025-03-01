@@ -3,11 +3,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const needsInput = document.getElementById("needsRatio");
     const wantsInput = document.getElementById("wantsRatio");
     const savingsInput = document.getElementById("savingsRatio");
-    const errorMsg = document.createElement("p"); // Create an error message element
+    const errorMsg = document.createElement("p");
+    
     errorMsg.style.color = "red";
     errorMsg.style.fontWeight = "bold";
-    errorMsg.style.display = "none"; // Initially hidden
-    document.getElementById("calculator").appendChild(errorMsg); // Add it below the inputs
+    errorMsg.style.display = "none";
+    document.getElementById("calculator").appendChild(errorMsg);
 
     // Load stored values from localStorage
     incomeInput.value = localStorage.getItem("income") || "";
@@ -16,13 +17,12 @@ document.addEventListener("DOMContentLoaded", function () {
     savingsInput.value = localStorage.getItem("savingsRatio") || "20";
 
     const ctx = document.getElementById("budgetChart").getContext("2d");
-
     let chart = new Chart(ctx, {
-        type: "pie",
+        type: "doughnut",
         data: {
             labels: ["Needs", "Wants", "Savings"],
             datasets: [{
-                data: [parseFloat(needsInput.value), parseFloat(wantsInput.value), parseFloat(savingsInput.value)],
+                data: [0, 0, 0], // Initially empty, will be updated
                 backgroundColor: ["#ff6384", "#36a2eb", "#ffce56"],
             }]
         },
@@ -32,6 +32,16 @@ document.addEventListener("DOMContentLoaded", function () {
             plugins: {
                 legend: {
                     position: "bottom"
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (tooltipItem) {
+                            let dataset = tooltipItem.dataset.data;
+                            let value = dataset[tooltipItem.dataIndex];
+                            let label = tooltipItem.label || "";
+                            return `${label}: ₹${value.toFixed(2)}`;
+                        }
+                    }
                 }
             }
         }
@@ -48,17 +58,17 @@ document.addEventListener("DOMContentLoaded", function () {
         if (totalRatio !== 100) {
             errorMsg.innerText = "Error: Needs, Wants, and Savings must add up to 100%!";
             errorMsg.style.display = "block";
-            return; // Stop execution if validation fails
+            return;
         } else {
-            errorMsg.style.display = "none"; // Hide error if valid
+            errorMsg.style.display = "none";
         }
 
         // Calculate values based on income
-        const needs = (income * (needsRatio / 100)).toFixed(2);
-        const wants = (income * (wantsRatio / 100)).toFixed(2);
-        const savings = (income * (savingsRatio / 100)).toFixed(2);
+        const needs = income * (needsRatio / 100);
+        const wants = income * (wantsRatio / 100);
+        const savings = income * (savingsRatio / 100);
 
-        // Update the chart
+        // Update the chart with actual monetary values
         chart.data.datasets[0].data = [needs, wants, savings];
         chart.update();
 
@@ -74,4 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
     needsInput.addEventListener("input", updateChart);
     wantsInput.addEventListener("input", updateChart);
     savingsInput.addEventListener("input", updateChart);
+
+    // Initial chart update
+    updateChart();
 });
