@@ -253,21 +253,23 @@ footer{
 
 .profile-container {
     display: flex;
+    align-items: center;
+    justify-items: center;
     color: black;
     width: 80%;
     height: 60vh;
     box-shadow:2px 10px 5px 5px rgba(0, 0, 0, 0.234);
-    background: #ffffff8a; /* Off-White */
+    background: #f8f9fa;
     padding: 20px;
     border-radius: 10px;
-    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
 }
 
 .profile-sidebar {
     width: 30%;
     text-align: center;
     padding: 20px;
-    background: rgba(255, 255, 255, 0.312); /* Soft Teal */
+    background: white;
+    padding: 20px;
     border-radius: 10px;
     color: #1d1d1dd5;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -294,14 +296,14 @@ footer{
     padding: 20px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
 }
 
 .box {
     background: #D1D5DB; /* Muted Gray */
     padding: 15px;
     height: 80px;
-    border-radius: 5px;
+    border-radius: 8px;
     text-align: center;
 }
 
