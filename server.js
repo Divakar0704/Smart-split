@@ -3,18 +3,23 @@ import bodyParser from "body-parser";
 import { fileURLToPath } from "url";
 import path from "path";
 import session from "express-session";
+import mongoose from "mongoose";
+import UserModel from "./lib/models/UserModel.js";
+import { ConnectDB } from "./lib/config/db.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
 const port = 3000;
+ConnectDB();
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.use(
   session({
@@ -24,39 +29,6 @@ app.use(
   })
 );
 
-// Dummy Database (Predefined Users)
-const users = {
-  "john": {
-    username: "john",
-    password: "john",  // Password is same as username for dummy users
-    name: "John Doe",
-    profession: "Software Engineer",
-    income: "₹80,000",
-    savingGoals: "Save ₹10,000 per month",
-    expenseCategories: "Rent, Food, Transport, Entertainment",
-    budgetHistory: "Last month savings: ₹8,000"
-  },
-  "divakar": {
-    username: "divakar",
-    password: "divakar",
-    name: "divakar",
-    profession: "Data Analyst",
-    income: "₹90,000",
-    savingGoals: "Save ₹12,000 per month",
-    expenseCategories: "Rent, Food, Travel, Shopping",
-    budgetHistory: "Last month savings: ₹10,000"
-  },
-  "varshitha": {
-    username: "varshitha",
-    password: "varshitha",
-    name: "varshitha",
-    profession: "UX Designer",
-    income: "₹75,000",
-    savingGoals: "Save ₹8,000 per month",
-    expenseCategories: "Groceries, Dining, Travel",
-    budgetHistory: "Last month savings: ₹6,500"
-  }
-};
 
 // Home Page
 app.get("/", (req, res) => {
@@ -68,46 +40,186 @@ app.get("/login", (req, res) => {
   res.render("login.ejs");
 });
 
+// Handle Login
+app.post("/login", async (req, res) => {
+  const { username, password } = req.body;
+  const existingUsername = await UserModel.findOne({ username } );
+
+  if(!existingUsername||existingUsername.password!=password){
+    // res.send("invalid credentials");
+    return res.status(400).json({ message: 'Username or email does not match' });
+  }
+  req.session.user = existingUsername.username; // Store user data in session
+  res.redirect("/profile");
+
+});
+
 // Register Page
 app.get("/register", (req, res) => {
   res.render("register.ejs");
+
 });
+
+
+
+
+// Registration Route
+app.post('/register', async (req, res) => {
+
+  const { username, password,email } = req.body;
+//   const username  = req.body.username;
+//   const email = req.body.email;
+// const password = req.body.password;
+  console.log(username);
+  try {
+    // Check if the user already exists
+    const existingUsername = await UserModel.findOne({ username } );
+    const existingEmail = await UserModel.findOne({ email } );
+    if (existingUsername || existingEmail ) {
+      return res.status(400).json({ message: 'Username or email already exists' });
+    }else{
+
+      // Create a new user
+    const newUser = new UserModel({ username, email, password });
+    await newUser.save();
+    
+    res.redirect("/login");
+    
+    }
+
+    
+  } catch (error) {
+    console.error('Error during registration:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
+
 
 // About Page
 app.get("/about", (req, res) => {
-  res.render("about.ejs");
-});
-
-// Planner Page
-app.get("/planner", (req, res) => {
   if (!req.session.user) {
     return res.redirect("/login");
   }
+  res.render("about.ejs");
+});
+
+
+
+// Planner Page
+app.get("/planner", async (req, res) => {
+  if (!req.session.user) {
+    return res.redirect("/login");
+  }
+
+  const username = req.session.user;
+  const user = await UserModel.findOne({ username });
+  console.log(JSON.stringify(user));
+  if (!user) {
+    return res.status(404).json({ message: "User not found." });
+  }
+
+     const income= user.income || 0;
+     const needsRatio= user.needsRatio|| 0;
+     const wantsRatio= user.wantsRatio|| 0;
+     const savingsRatio= user.savingsRatio|| 0;
+     const needs= user.needs|| 0;
+     const wants= user.wants|| 0;
+     const savings= user.savings|| 0;
+
   res.render("planner.ejs", { 
-    needs: 50, wants: 30, savings: 20, user: req.session.user 
+    income,needs, wants, savings,needsRatio, wantsRatio, savingsRatio, user
   });
 });
 
-// Handle Planner Data Submission
-app.post("/planner", (req, res) => {
-  const income = parseFloat(req.body.income);
-  const needsRatio = parseFloat(req.body.needsRatio) / 100;
-  const wantsRatio = parseFloat(req.body.wantsRatio) / 100;
-  const savingsRatio = parseFloat(req.body.savingsRatio) / 100;
+// app.post("/planner", async (req, res) => {
+//   const username = req.session.user; // Ensure this is the correct way to access the username
+  
+//   const income = parseFloat(req.body.income);
+//   const needsRatio = parseFloat(req.body.needsRatio);
+//   const wantsRatio = parseFloat(req.body.wantsRatio) ;
+//   const savingsRatio = parseFloat(req.body.savingsRatio) ;
 
-  if (needsRatio + wantsRatio + savingsRatio > 1) {
-    return res.send("ENTER VALID RATIOS.");
+//   // Validate ratios
+//   if (needsRatio + wantsRatio + savingsRatio !== 100) {
+//     return res.status(400).send("Needs, Wants, and Savings ratios must add up to 100%.");
+//   }
+
+//   // Calculate needs, wants, and savings
+//   const needs = (income * needsRatio/100).toFixed(2);
+//   const wants = (income * wantsRatio/100).toFixed(2);
+//   const savings = (income * savingsRatio/100).toFixed(2);
+
+//   try {
+//     // Update the user's data in the database
+//     const updatedUser = await UserModel.findOneAndUpdate(
+//       { username },
+//       { income, needsRatio, wantsRatio, savingsRatio, needs, wants, savings },
+     
+//     );
+  
+
+//     if (!updatedUser) {
+//       return res.status(404).json({ message: 'User not found' });
+//     }
+
+//     // Render the planner page with updated data
+//     return res.render("planner.ejs", { income, needs, wants, savings,needsRatio, wantsRatio, savingsRatio, user: req.session.user });
+//   } catch (error) {
+//     console.error('Error during update:', error);
+//     return res.status(500).json({ message: 'Internal server error' });
+//   }
+// });
+
+app.post("/planner", async (req, res) => {
+  const username = req.session.user; // Ensure this is the correct way to access the username
+  
+  const income = parseFloat(req.body.income);
+  const needsRatio = parseFloat(req.body.needsRatio);
+  const wantsRatio = parseFloat(req.body.wantsRatio);
+  const savingsRatio = parseFloat(req.body.savingsRatio);
+
+  // Validate ratios
+  if (needsRatio + wantsRatio + savingsRatio !== 100) {
+    return res.status(400).send("Needs, Wants, and Savings ratios must add up to 100%.");
   }
 
-  if (!isNaN(income) && income > 0 && needsRatio + wantsRatio + savingsRatio === 1) {
-    const needs = (income * needsRatio).toFixed(2);
-    const wants = (income * wantsRatio).toFixed(2);
-    const savings = (income * savingsRatio).toFixed(2);
-    res.render("planner.ejs", { needs, wants, savings, user: req.session.user });
-  } else {
-    res.render("planner.ejs", { needs: 0, wants: 0, savings: 0, user: req.session.user });
+  // Calculate needs, wants, and savings
+  const needs = (income * needsRatio / 100).toFixed(2);
+  const wants = (income * wantsRatio / 100).toFixed(2);
+  const savings = (income * savingsRatio / 100).toFixed(2);
+
+  try {
+    // Update the user's data in the database
+    const updatedUser = await UserModel.findOneAndUpdate(
+      { username },
+      { income, needsRatio, wantsRatio, savingsRatio, needs, wants, savings },
+      { new: true } // Return the updated document
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Render the planner page with updated data
+    return res.render("planner.ejs", {
+      income: updatedUser.income,
+      needsRatio: updatedUser.needsRatio,
+      wantsRatio: updatedUser.wantsRatio,
+      savingsRatio: updatedUser.savingsRatio,
+      needs: updatedUser.needs,
+      wants: updatedUser.wants,
+      savings: updatedUser.savings,
+      user: updatedUser // Pass the entire user object if needed
+    });
+  } catch (error) {
+    console.error('Error during update:', error);
+    return res.status(500).json({ message: 'Internal server error' });
   }
 });
+
+
 
 // Insights Page
 app.get("/insights", (req, res) => {
@@ -130,17 +242,7 @@ app.get("/contact", (req, res) => {
   res.render("contact.ejs");
 });
 
-// Handle Login
-app.post("/login", (req, res) => {
-  const { username, password } = req.body;
 
-  if (users[username] && users[username].password === password) {
-    req.session.user = users[username]; // Store user data in session
-    res.redirect("/profile");
-  } else {
-    res.send("Invalid username or password. Please try again.");
-  }
-});
 
 // Logout
 app.get("/logout", (req, res) => {
