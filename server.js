@@ -6,6 +6,8 @@ import session from "express-session";
 import mongoose from "mongoose";
 import UserModel from "./models/UserModel.js";
 import dotenv from "dotenv";
+
+
 dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
@@ -30,7 +32,7 @@ app.use(
   session({
     secret: "mySecretKey",
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
   })
 );
 
