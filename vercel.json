@@ -9,7 +9,6 @@
   "routes": [
     {
       "src": "/(.*)",
-       "builds": [{ "src": "server.js", "use": "@vercel/node" }],
       "dest": "server.js"
     }
   ]
