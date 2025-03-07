@@ -103,11 +103,12 @@ app.post('/register', async (req, res) => {
 
 
 // About Page
-app.get("/about", (req, res) => {
-  if (!req.session.user) {
+app.get("/about", async (req, res) => {
+    const user1 = await req.session.user;
+  if (!user1) {
     return res.redirect("/login");
   }
-  res.render("about.ejs");
+  res.render("about.ejs")
 });
 
 
@@ -189,18 +190,20 @@ app.post("/planner", async (req, res) => {
 
 
 // Insights Page
-app.get("/insights", (req, res) => {
-  if (!req.session.user) {
-    return res.redirect("/login");
-  }
+app.get("/insights", async (req, res) => {
+    const user1 = await req.session.user;
+    if (!user1) {
+      return res.redirect("/login");
+    }
   res.render("insights.ejs", { user: req.session.user });
 });
 
 // Profile Page (Dynamic Data from Login)
-app.get("/profile", (req, res) => {
-  if (!req.session.user) {
-    return res.redirect("/login");
-  }
+app.get("/profile", async (req, res) => {
+    const user1 = await req.session.user;
+    if (!user1) {
+      return res.redirect("/login");
+    }
   res.render("profile.ejs", { user: req.session.user });
 });
 
