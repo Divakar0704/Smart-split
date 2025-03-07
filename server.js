@@ -4,15 +4,20 @@ import { fileURLToPath } from "url";
 import path from "path";
 import session from "express-session";
 import mongoose from "mongoose";
-import UserModel from "./lib/models/UserModel.js";
-import { ConnectDB } from "./lib/config/db.js";
+import UserModel from "./models/UserModel.js";
+import dotenv from "dotenv";
+dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
 const port = 3000;
-ConnectDB();
+// MongoDB Connection
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log("MongoDB Connected"))
+  .catch((err) => console.error("MongoDB Connection Error:", err));
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -133,44 +138,6 @@ app.get("/planner", async (req, res) => {
   });
 });
 
-// app.post("/planner", async (req, res) => {
-//   const username = req.session.user; // Ensure this is the correct way to access the username
-  
-//   const income = parseFloat(req.body.income);
-//   const needsRatio = parseFloat(req.body.needsRatio);
-//   const wantsRatio = parseFloat(req.body.wantsRatio) ;
-//   const savingsRatio = parseFloat(req.body.savingsRatio) ;
-
-//   // Validate ratios
-//   if (needsRatio + wantsRatio + savingsRatio !== 100) {
-//     return res.status(400).send("Needs, Wants, and Savings ratios must add up to 100%.");
-//   }
-
-//   // Calculate needs, wants, and savings
-//   const needs = (income * needsRatio/100).toFixed(2);
-//   const wants = (income * wantsRatio/100).toFixed(2);
-//   const savings = (income * savingsRatio/100).toFixed(2);
-
-//   try {
-//     // Update the user's data in the database
-//     const updatedUser = await UserModel.findOneAndUpdate(
-//       { username },
-//       { income, needsRatio, wantsRatio, savingsRatio, needs, wants, savings },
-     
-//     );
-  
-
-//     if (!updatedUser) {
-//       return res.status(404).json({ message: 'User not found' });
-//     }
-
-//     // Render the planner page with updated data
-//     return res.render("planner.ejs", { income, needs, wants, savings,needsRatio, wantsRatio, savingsRatio, user: req.session.user });
-//   } catch (error) {
-//     console.error('Error during update:', error);
-//     return res.status(500).json({ message: 'Internal server error' });
-//   }
-// });
 
 app.post("/planner", async (req, res) => {
   const username = req.session.user; // Ensure this is the correct way to access the username
