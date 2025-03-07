@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import { fileURLToPath } from "url";
 import path from "path";
 import session from "express-session";
+import MongoStore from "connect-mongo";
 import mongoose from "mongoose";
 import UserModel from "./models/UserModel.js";
 import dotenv from "dotenv";
@@ -31,14 +32,23 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 
 // Middleware
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(
-    session({
-        secret: "mySecretKey",
-        resave: false,
-        saveUninitialized: false,
-    })
+  session({
+    secret: process.env.SESSION_SECRET || "mySecretKey",
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO_URI, // Store session in MongoDB
+      collectionName: "sessions",
+    }),
+    cookie: {
+      secure: process.env.NODE_ENV === "production", // Secure cookies in production
+      maxAge: 1000 * 60 * 60 * 24, // 1 day
+    },
+  })
 );
 
 // Routes
