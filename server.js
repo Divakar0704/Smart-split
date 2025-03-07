@@ -6,8 +6,10 @@ import session from "express-session";
 import mongoose from "mongoose";
 import UserModel from "./models/UserModel.js";
 import dotenv from "dotenv";
+import MongoDBStore from "connect-mongodb-session";
 
 
+const MongoStore = MongoDBStore(session);
 dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
@@ -28,14 +30,27 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use(
-  session({
-    secret: "mySecretKey",
-    resave: false,
-    saveUninitialized: true,
-  })
-);
 
+// Create session store
+const store = new MongoStore({
+    uri: process.env.MONGO_URI, // Use your MongoDB Atlas URI
+    collection: "sessions",
+  });
+
+
+app.use(
+    session({
+      secret: "mySecretKey",
+      resave: false,
+      saveUninitialized: false,
+      store: store, // Store sessions in MongoDB
+      cookie: {
+        secure: process.env.NODE_ENV === "production", // Set secure to true in production (HTTPS)
+        httpOnly: true,
+        maxAge: 1000 * 60 * 60 * 24, // 1 day
+      },
+    })
+  );
 
 // Home Page
 app.get("/", (req, res) => {
