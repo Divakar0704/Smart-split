@@ -78,7 +78,7 @@ app.post("/register", async (req, res) => {
 });
 
 // Planner Route
-app.get("/planner", authMiddleware, async (req, res) => {
+app.get("/planner", async (req, res) => {
   const user = await UserModel.findOne({ username: req.session.user });
   if (!user) return res.status(404).json({ message: "User not found." });
   res.render("planner.ejs", { ...user.toObject() });
