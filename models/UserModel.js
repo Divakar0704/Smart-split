@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { stringify } from "querystring";
 
 
 const Schema = new mongoose.Schema({
@@ -33,7 +34,7 @@ const Schema = new mongoose.Schema({
       min: 0,
       max: 100,
     },
-    expenseCategories: [{
+    categories: [{
       type: String,
       trim: true,
     }],
@@ -52,6 +53,10 @@ const Schema = new mongoose.Schema({
       date:{
         type: Date,
         default: Date.now()
+      },
+      profession:{
+        type: String,
+        default: "",
       },
     },
    { timestamps: true });

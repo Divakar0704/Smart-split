@@ -1,0 +1,51 @@
+<%- include("partials/header.ejs") %> <%- include("partials/navbar.ejs") %>
+
+<div id="edit">
+   
+<div class="edit-profile-container">
+        <h2>Edit Profile</h2>
+        <form action="/edit-profile" method="POST">
+            <!-- Username -->
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" value="<%= user.username %>" required>
+            <!-- email -->
+            <label for="username">Email</label>
+            <input type="email" id="email" name="email" value="<%= user.email %>" required>
+
+            <!-- profession -->
+            <label for="username">Profession</label>
+            <input type="text" id="profession" name="profession" value="<%= user.profession||"" %>" required>
+            <!-- Financial Ratios -->
+            <div class="ratio-group">
+                <div>
+                    <label for="needsRatio">Needs Ratio (%)</label>
+                    <input type="number" id="needsRatio" name="needsRatio" value="<%= user.needsRatio||"" %>" required>
+                </div>
+                <div>
+                    <label for="wantsRatio">Wants Ratio (%)</label>
+                    <input type="number" id="wantsRatio" name="wantsRatio" value="<%= user.wantsRatio||"" %>" required>
+                </div>
+                <div>
+                    <label for="savingsRatio">Savings Ratio (%)</label>
+                    <input type="number" id="savingsRatio" name="savingsRatio" value="<%= user.savingsRatio||"" %>" required>
+                </div>
+            </div>
+
+            <!-- Income -->
+            <label for="income">Income</label>
+            <input type="number" id="income" name="income" value="<%= user.income||"" %>" required>
+
+            <!-- Expense Categories -->
+            <label for="categories">Expense Categories of This Month</label>
+            <textarea id="categories" name="categories" rows="3"><%= user.categories||"" %></textarea>
+
+            <!-- Buttons -->
+            <div class="button-group">
+                <button type="submit" class="save-btn">Save Changes</button>
+                <a href="/profile" class="cancel-btn">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div> 
+</body>
+</html>

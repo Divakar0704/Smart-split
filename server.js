@@ -6,10 +6,8 @@ import session from "express-session";
 import mongoose from "mongoose";
 import UserModel from "./models/UserModel.js";
 import dotenv from "dotenv";
-import MongoDBStore from "connect-mongodb-session";
 
 
-const MongoStore = MongoDBStore(session);
 dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
@@ -30,26 +28,11 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
-
-// Create session store
-const store = new MongoStore({
-    uri: process.env.MONGO_URI, // Use your MongoDB Atlas URI
-    collection: "sessions",
-  });
-
-
 app.use(
     session({
       secret: "mySecretKey",
       resave: false,
-      saveUninitialized: false,
-      store: store, // Store sessions in MongoDB
-      cookie: {
-        secure: process.env.NODE_ENV === "production", // Set secure to true in production (HTTPS)
-        httpOnly: true,
-        maxAge: 1000 * 60 * 60 * 24, // 1 day
-      },
-    })
+      saveUninitialized: false,})
   );
 
 // Home Page
@@ -107,9 +90,7 @@ app.post('/register', async (req, res) => {
     
     res.redirect("/login");
     
-    }
-
-    
+    }    
   } catch (error) {
     console.error('Error during registration:', error);
     res.status(500).json({ message: 'Internal server error' });
@@ -132,6 +113,7 @@ app.get("/about", async (req, res) => {
 app.get("/planner", async (req, res) => {
   if (!req.session.user) {
     return res.redirect("/login");
+    
   }
 
   const username = req.session.user;
@@ -214,9 +196,47 @@ app.get("/insights", async (req, res) => {
 // Profile Page (Dynamic Data from Login)
 app.get("/profile", async (req, res) => {
 
-  res.render("profile.ejs", { user: req.session.user });
+  const username = req.session.user;
+  const user = await UserModel.findOne({ username });
+
+  res.render("profile.ejs", { user });
 
 });
+
+//edit-profile page
+app.get  ("/edit-profile",async (req,res)=>{
+  const username = req.session.user;
+  const user = await UserModel.findOne({ username });
+
+  res.render("edit-profile.ejs",{user});
+});
+
+app.post("/edit-profile", async (req, res) => {
+  const username = req.session.user;
+
+  const { email, categories, income, savingsRatio, wantsRatio, needsRatio, profession } = req.body;
+
+  try {
+    // Update the user's data in the database
+    const updatedUser = await UserModel.findOneAndUpdate(
+      { username },
+      {username, email, categories, income, needsRatio, wantsRatio, savingsRatio, profession },
+      { new: true } // Return the updated document
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Redirect to profile page after successful update
+    return res.redirect("/profile");
+  } catch (error) {
+    console.error("Error during update:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+
 
 // Contact Page
 app.get("/contact", (req, res) => {

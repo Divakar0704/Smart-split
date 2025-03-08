@@ -4,10 +4,11 @@
 <form id="profile" action="/profile" method="POST">
   <div class="profile-container">
     <div class="profile-sidebar">
+      <div class="edit-btn"><a href="/edit-profile">Edit</a></div>
       <div class="profile-pic">
         <img src="/images/profile.png" alt="Profile" />
       </div>
-      <h2><%= user %></h2>
+      <h2><%= user.username  %></h2>
       <p><%= user.profession %></p>
       <div class="income-box">
         <h3>Monthly Income </h3>
@@ -18,15 +19,15 @@
     <div class="profile-details">
       <div class="box goals">
         <h3>Saving Goals</h3>
-        <p><%= user.savingGoals %></p>
+        <p>₹<%= user.savings %>/-</p>
       </div>
       <div class="box expenses">
         <h3>Expense Categories of This Month</h3>
-        <p><%= user.expenseCategories %></p>
+        <p><%= user.categories %></p>
       </div>
       <div class="box history">
         <h3>Budget History</h3>
-        <p><%= user.budgetHistory %></p>
+        <p>₹<%= user.needs+user.wants %> (This month)</p>
       </div>
     </div>
   </div>
