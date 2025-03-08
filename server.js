@@ -84,7 +84,7 @@ app.get("/planner", async (req, res) => {
   res.render("planner.ejs", { ...user.toObject() });
 });
 
-app.post("/planner", authMiddleware, async (req, res) => {
+app.post("/planner", async (req, res) => {
   const { income, needsRatio, wantsRatio, savingsRatio } = req.body;
   if (+needsRatio + +wantsRatio + +savingsRatio !== 100) {
     return res.status(400).send("Needs, Wants, and Savings ratios must sum to 100%.");
