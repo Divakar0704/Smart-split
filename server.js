@@ -42,6 +42,12 @@ app.get("/login", (req, res) => res.render("login.ejs"));
 
 app.get("/register", (req, res) => res.render("register.ejs"));
 
+// Authentication Middleware
+function authMiddleware(req, res, next) {
+  if (!req.session.user) return res.redirect("/login");
+  next();
+}
+
 app.get("/about", authMiddleware, (req, res) => res.render("about.ejs"));
 
 app.get("/insights", authMiddleware, (req, res) => res.render("insights.ejs", { user: req.session.user }));
@@ -113,12 +119,6 @@ app.get("/logout", (req, res) => {
     res.redirect("/");
   });
 });
-
-// Authentication Middleware
-function authMiddleware(req, res, next) {
-  if (!req.session.user) return res.redirect("/login");
-  next();
-}
 
 // Start Server
 app.listen(port, () => console.log(`Server running at http://localhost:${port}/`));
