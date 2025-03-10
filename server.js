@@ -30,34 +30,25 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 //mongo session
-// const sessionStorage = MongoStore.create({
-//   mongoUrl: process.env.MONGO_URI,
-//   dbName:'user',
-//   collection: "sessions",
-//   ttl:14*24*60*60,
-//   autoRemove:'native'
-// });
-
-
 const sessionStorage = MongoStore.create({
   mongoUrl: process.env.MONGO_URI,
   dbName: "test",
-  collection: "sessions",
+  collection: "user",
   ttl: 14 * 24 * 60 * 60, // 14 days
   autoRemove: "interval",
-  autoRemoveInterval: 10, // Removes expired sessions every 10 mins
+  autoRemoveInterval: 60, // Removes expired sessions every 60 mins
 });
 
 app.use(
   session({
     secret: "mySecretKey",
     resave: false,
-    saveUninitialized: false, // Only save if the session is modified
+    saveUninitialized: true, // Only save if the session is modified
     store: sessionStorage,
     cookie: {
-      secure: process.env.NODE_ENV === "production",
-      httpOnly: true,
-      sameSite: "lax",
+      // secure: process.env.NODE_ENV === "production",
+      // httpOnly: true,
+      // sameSite: "lax",
       maxAge: 1000 * 60 * 60 * 24, // 1 day
     },
   })
@@ -72,6 +63,11 @@ app.use(
 
 //     })
 //   );
+
+app.get("/check-session", (req, res) => {
+  console.log("Session Data:", req.session);
+  res.send(req.session);
+});
 
 // Home Page
 app.get("/", (req, res) => {

@@ -17,11 +17,11 @@
         <form action="/login" method="POST">
           <div class="input-group">
             <label for="login-username">Username</label>
-            <input type="text" id="login-username" name="username" placeholder="Enter your username" required>
+            <input type="text" id="login-username" name="username" placeholder="Enter your username" required autocomplete="username">
           </div>
           <div class="input-group">
             <label for="login-password">Password</label>
-            <input type="password" id="login-password" name="password" placeholder="Enter your password" required>
+            <input type="password" id="login-password" name="password" placeholder="Enter your password" required autocomplete="password">
           </div>
           <button type="submit" class="btn">Login</button>
           <p class="toggle-text">Don't have an account? <a href="/register"><span class="toggle-link">Register</span></a></p>
