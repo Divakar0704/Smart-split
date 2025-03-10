@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import { fileURLToPath } from "url";
 import path from "path";
 import session from "express-session";
+import MongoStore from "connect-mongo";
 import mongoose from "mongoose";
 import UserModel from "./models/UserModel.js";
 import dotenv from "dotenv";
@@ -28,11 +29,24 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
+//mongo session
+const sessionStorage = MongoStore.create({
+  mongoUrl: process.env.MONGO_URI,
+  dbName:'user',
+  collection: "sessions",
+  ttl:14*24*60*60,
+  autoRemove:'test'
+});
+
 app.use(
     session({
       secret: "mySecretKey",
       resave: false,
-      saveUninitialized: false,})
+      saveUninitialized: true,
+      store: sessionStorage, // ✅ Use MongoDB session store
+      cookie:{maxAge:10000000},
+
+    })
   );
 
 // Home Page
