@@ -102,7 +102,10 @@ app.post('/register', async (req, res) => {
 
 // About Page
 app.get("/about", async (req, res) => {
-  
+  if (!req.session.user) {
+    return res.redirect("/login");
+    
+  }
   res.render("about.ejs")
 
 });
@@ -138,6 +141,10 @@ app.get("/planner", async (req, res) => {
 
 
 app.post("/planner", async (req, res) => {
+  if (!req.session.user) {
+    return res.redirect("/login");
+    
+  }
   const username = req.session.user; // Ensure this is the correct way to access the username
   
   const income = parseFloat(req.body.income);
@@ -188,14 +195,20 @@ app.post("/planner", async (req, res) => {
 
 // Insights Page
 app.get("/insights", async (req, res) => {
-
+  if (!req.session.user) {
+    return res.redirect("/login");
+    
+  }
   res.render("insights.ejs", { user: req.session.user });
 
 });
 
 // Profile Page (Dynamic Data from Login)
 app.get("/profile", async (req, res) => {
-
+  if (!req.session.user) {
+    return res.redirect("/login");
+    
+  }
   const username = req.session.user;
   const user = await UserModel.findOne({ username });
 
@@ -205,6 +218,10 @@ app.get("/profile", async (req, res) => {
 
 //edit-profile page
 app.get  ("/edit-profile",async (req,res)=>{
+  if (!req.session.user) {
+    return res.redirect("/login");
+    
+  }
   const username = req.session.user;
   const user = await UserModel.findOne({ username });
 
@@ -240,6 +257,10 @@ app.post("/edit-profile", async (req, res) => {
 
 // Contact Page
 app.get("/contact", (req, res) => {
+  if (!req.session.user) {
+    return res.redirect("/login");
+    
+  }
   res.render("contact.ejs");
 });
 

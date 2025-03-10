@@ -8,8 +8,8 @@
       <div class="profile-pic">
         <img src="/images/profile.png" alt="Profile" />
       </div>
-      <h2><%= user.username  %></h2>
-      <p><%= user.profession %></p>
+      <h2><%= user.username || "0"  %></h2>
+      <p><%= user.profession || "0" %></p>
       <div class="income-box">
         <h3>Monthly Income </h3>
         <p><%= user.income %></p>
@@ -19,15 +19,15 @@
     <div class="profile-details">
       <div class="box goals">
         <h3>Saving Goals</h3>
-        <p>₹<%= user.savings %>/-</p>
+        <p>₹<%= user.savings || "0" %>/-</p>
       </div>
       <div class="box expenses">
         <h3>Expense Categories of This Month</h3>
-        <p><%= user.categories %></p>
+        <p><%= user.categories || "0" %></p>
       </div>
       <div class="box history">
         <h3>Budget History</h3>
-        <p>₹<%= user.needs+user.wants %> (This month)</p>
+        <p>₹<%= user.needs+user.wants || "0" %> (This month)</p>
       </div>
     </div>
   </div>
