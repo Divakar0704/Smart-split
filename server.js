@@ -34,19 +34,44 @@ app.use(express.json());
 //   mongoUrl: process.env.MONGO_URI,
 //   dbName:'user',
 //   collection: "sessions",
-//   ttl:14*2*60*60,
+//   ttl:14*24*60*60,
 //   autoRemove:'native'
 // });
 
-app.use(
-    session({
-      secret: "mySecretKey",
-      resave: false,
-      saveUninitialized: true,
-      cookie:{maxAge:10000000},
 
-    })
-  );
+const sessionStorage = MongoStore.create({
+  mongoUrl: process.env.MONGO_URI,
+  dbName: "test",
+  collection: "sessions",
+  ttl: 14 * 24 * 60 * 60, // 14 days
+  autoRemove: "interval",
+  autoRemoveInterval: 10, // Removes expired sessions every 10 mins
+});
+
+app.use(
+  session({
+    secret: "mySecretKey",
+    resave: false,
+    saveUninitialized: false, // Only save if the session is modified
+    store: sessionStorage,
+    cookie: {
+      secure: process.env.NODE_ENV === "production",
+      httpOnly: true,
+      sameSite: "lax",
+      maxAge: 1000 * 60 * 60 * 24, // 1 day
+    },
+  })
+);
+
+// app.use(
+//     session({
+//       secret: "mySecretKey",
+//       resave: false,
+//       saveUninitialized: true,
+//       cookie:{maxAge:10000000},
+
+//     })
+//   );
 
 // Home Page
 app.get("/", (req, res) => {
