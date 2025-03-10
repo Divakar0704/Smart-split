@@ -30,20 +30,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 //mongo session
-const sessionStorage = MongoStore.create({
-  mongoUrl: process.env.MONGO_URI,
-  dbName:'user',
-  collection: "sessions",
-  ttl:14*24*60*60,
-  autoRemove:'test'
-});
+// const sessionStorage = MongoStore.create({
+//   mongoUrl: process.env.MONGO_URI,
+//   dbName:'user',
+//   collection: "sessions",
+//   ttl:14*2*60*60,
+//   autoRemove:'native'
+// });
 
 app.use(
     session({
       secret: "mySecretKey",
       resave: false,
       saveUninitialized: true,
-      store: sessionStorage, // ✅ Use MongoDB session store
       cookie:{maxAge:10000000},
 
     })
