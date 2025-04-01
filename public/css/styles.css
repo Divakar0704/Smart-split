@@ -535,3 +535,61 @@ button, .cancel-btn {
 .cancel-btn:hover {
     background-color: #bbb;
 }
+
+/* //newly added */
+#insights{
+  margin-top: 7rem;
+  position:absolute;
+}
+/* Styling for insights page */
+.tips-section {
+    margin-bottom: 30px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    font-size: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .tips-section h4 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 8px;
+  }
+  
+  .tips-section ul {
+    padding-left: 20px;
+  }
+  
+  .tips-section li {
+    margin-bottom: 10px;
+    line-height: 1.5;
+  }
+  
+  .savings-allocation {
+    background-color: #e8f4fc;
+    padding: 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    margin-top: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .savings-allocation h4 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+  }
+  
+  .update-prompt {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f0f9ff;
+    border-left: 4px solid #3498db;
+    font-style: italic;
+  }
+  
+  .update-prompt a {
+    color: #3498db;
+    text-decoration: underline;
+  }

@@ -228,13 +228,33 @@ app.post("/planner", async (req, res) => {
 
 
 // Insights Page
+// app.get("/insights", async (req, res) => {
+//   if (!req.session.user) {
+//     return res.redirect("/login");
+    
+//   }
+//   res.render("insights.ejs", { user: req.session.user });
+
+// });
+
+// Insights Page
 app.get("/insights", async (req, res) => {
   if (!req.session.user) {
     return res.redirect("/login");
-    
   }
-  res.render("insights.ejs", { user: req.session.user });
-
+  
+  const username = req.session.user;
+  const user = await UserModel.findOne({ username });
+  
+  // If user exists, get their income and savings data
+  const income = user ? user.income || 0 : 0;
+  const savings = user ? user.savings || 0 : 0;
+  
+  res.render("insights.ejs", { 
+    user, 
+    income,
+    savings
+  });
 });
 
 // Profile Page (Dynamic Data from Login)

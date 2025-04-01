@@ -1,23 +1,115 @@
-<%- include("partials/header.ejs") %> <%- include("partials/navbar.ejs") %>
+<%- include("partials/header.ejs") %> 
+<%- include("partials/navbar.ejs") %>
 
 <div id="insights">
   <div class="insights-content">
-    <h2>Budgeting Tips</h2>
+    <h2>Financial Insights for You</h2>
     <br />
-    <ul>
-      <li>
-        Track your spending regularly to stay within the 50-30-20 guidelines.
-      </li>
-      <li>
-        Prioritize saving for an emergency fund before discretionary spending.
-      </li>
-      <li>
-        Review and adjust your budget as your financial situation changes.
-      </li>
-    </ul>
+    
+    <% if (user && income) { %>
+      <h3>Based on your income of $<%= income.toLocaleString() %></h3>
+      
+      <% if (income < 30000) { %>
+        <!-- Low income range tips -->
+        <div class="tips-section">
+          <h4>Budgeting Tips</h4>
+          <ul>
+            <li>Focus on building an emergency fund of at least $1,000</li>
+            <li>Prioritize paying off high-interest debt</li>
+            <!-- <li>Consider a side hustle to increase your income</li>
+            <li>Look into government assistance programs you may qualify for</li> -->
+          </ul>
+          
+          <h4>Saving & Investment Tips</h4>
+          <ul>
+            <li>Start with a high-yield savings account for emergency funds</li>
+            <li>If your employer offers 401(k) matching, contribute enough to get the match</li>
+            <!-- <li>Consider tax advantages of a Roth IRA once you have emergency savings</li> -->
+            <!-- <li>Focus on building skills that can increase your earning potential</li> -->
+          </ul>
+        </div>
+        
+      <% } else if (income >= 30000 && income < 70000) { %>
+        <!-- Middle income range tips -->
+        <div class="tips-section">
+          <h4>Budgeting Tips</h4>
+          <ul>
+            <li>Aim for a 3-6 month emergency fund</li>
+            <li>Use the debt snowball or avalanche method to eliminate remaining debts</li>
+            <!-- <li>Review your insurance coverage to ensure adequate protection</li>
+            <li>Find balance between lifestyle improvements and financial goals</li> -->
+          </ul>
+          
+          <h4>Saving & Investment Tips</h4>
+          <ul>
+            <li>Maximize employer retirement matching in 401(k) or similar plans</li>
+            <li>Consider opening a Roth or Traditional IRA for additional tax advantages</li>
+            <!-- <li>Begin investing in low-cost index funds for long-term growth</li>
+            <li>Consider starting a Health Savings Account (HSA) if eligible</li> -->
+          </ul>
+        </div>
+        
+      <% } else { %>
+        <!-- High income range tips -->
+        <div class="tips-section">
+          <h4>Budgeting Tips</h4>
+          <ul>
+            <li>Consider a more robust emergency fund of 6-12 months</li>
+            <li>Watch for lifestyle inflation that can reduce saving potential</li>
+            <!-- <li>Optimize your tax strategy with professional guidance</li>
+            <li>Review your insurance needs including umbrella policies</li> -->
+          </ul>
+          
+          <h4>Saving & Investment Tips</h4>
+          <ul>
+            <li>Max out tax-advantaged retirement accounts (401k, IRA)</li>
+            <!-- <li>Consider diversification through real estate or alternative investments</li> -->
+            <li>Look into tax-efficient investment strategies</li>
+            <!-- <li>Consider working with a certified financial planner for comprehensive planning</li>
+            <li>Explore opportunities for generational wealth building and estate planning</li> -->
+          </ul>
+        </div>
+      <% } %>
+      
+      <div class="savings-allocation">
+        <h4>Recommended Allocation for Your Savings: $<%= savings %></h4>
+        <ul>
+          <% if (income < 30000) { %>
+            <li>Emergency Fund: 70%</li>
+            <li>Retirement: 20%</li>
+            <li>Short-term goals: 10%</li>
+          <% } else if (income >= 30000 && income < 70000) { %>
+            <li>Emergency Fund: 40%</li>
+            <li>Retirement: 40%</li>
+            <li>Short-term goals: 15%</li>
+            <li>Medium-term investments: 5%</li>
+          <% } else { %>
+            <li>Emergency Fund: 20%</li>
+            <li>Retirement: 40%</li>
+            <li>Medium-term investments: 25%</li>
+            <li>Long-term wealth building: 15%</li>
+          <% } %>
+        </ul>
+      </div>
+      
+    <% } else { %>
+      <!-- Default content if no income data is available -->
+      <div class="tips-section">
+        <h4>General Budgeting Tips</h4>
+        <ul>
+          <li>Track your spending regularly to stay within the 50-30-20 guidelines.</li>
+          <li>Prioritize saving for an emergency fund before discretionary spending.</li>
+          <!-- <li>Review and adjust your budget as your financial situation changes.</li> -->
+        </ul>
+        
+        <p class="update-prompt">Update your income in the <a href="/planner">planner</a> or <a href="/profile">profile</a> to get personalized financial insights.</p>
+      </div>
+    <% } %>
   </div>
-
-  <div class="insights-img"><img src="images/insights.svg" alt="" /></div>
+  
+  <div class="insights-img">
+    <img src="images/insights.svg" alt="Financial insights illustration" />
+  </div>
 </div>
 
 <!-- Footer Section -->
