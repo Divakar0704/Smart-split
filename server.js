@@ -46,23 +46,10 @@ app.use(
     saveUninitialized: true, // Only save if the session is modified
     store: sessionStorage,
     cookie: {
-      // secure: process.env.NODE_ENV === "production",
-      // httpOnly: true,
-      // sameSite: "lax",
       maxAge: 1000 * 60 * 60 * 24, // 1 day
     },
   })
 );
-
-// app.use(
-//     session({
-//       secret: "mySecretKey",
-//       resave: false,
-//       saveUninitialized: true,
-//       cookie:{maxAge:10000000},
-
-//     })
-//   );
 
 app.get("/check-session", (req, res) => {
   console.log("Session Data:", req.session);
@@ -79,18 +66,29 @@ app.get("/login", (req, res) => {
   res.render("login.ejs");
 });
 
-// Handle Login
+// Handle Login User Authentication
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
-  const existingUsername = await UserModel.findOne({ username } );
 
-  if(!existingUsername||existingUsername.password!=password){
-    
-    return res.status(400).json({ message: 'Username or email does not match' });
+  try {
+    const user = await UserModel.findOne({
+      $or: [
+        { username: username },
+        { email: username }
+      ]
+    });
+
+    if (!user || user.password != password) {
+      return res.status(400).json({ message: 'Invalid credentials' });
+    }
+
+    req.session.user = user.username; // Store username in session
+    res.redirect("/profile");
+
+  } catch (error) {
+    console.error('Login error:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
-  req.session.user = existingUsername.username; // Store user data in session
-  res.redirect("/profile");
-
 });
 
 // Register Page
@@ -106,10 +104,7 @@ app.get("/register", (req, res) => {
 app.post('/register', async (req, res) => {
 
   const { username, password,email } = req.body;
-//   const username  = req.body.username;
-//   const email = req.body.email;
-// const password = req.body.password;
-//   console.log(username);
+
   try {
     // Check if the user already exists
     const existingUsername = await UserModel.findOne({ username } );
@@ -130,9 +125,6 @@ app.post('/register', async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 });
-
-
-
 
 // About Page
 app.get("/about", async (req, res) => {
@@ -225,17 +217,6 @@ app.post("/planner", async (req, res) => {
   }
 });
 
-
-
-// Insights Page
-// app.get("/insights", async (req, res) => {
-//   if (!req.session.user) {
-//     return res.redirect("/login");
-    
-//   }
-//   res.render("insights.ejs", { user: req.session.user });
-
-// });
 
 // Insights Page
 app.get("/insights", async (req, res) => {
